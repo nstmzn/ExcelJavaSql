@@ -1,0 +1,9 @@
+package com.app.main;
+
+public interface StatusProgressListener {
+
+	void updateProgressUI(int percentageComplete);
+
+	void updateProgressText(String progress);
+
+}
