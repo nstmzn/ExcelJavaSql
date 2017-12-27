@@ -1,0 +1,41 @@
+import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
+import javax.swing.JProgressBar;
+
+
+public class TestFrame extends JFrame{
+	
+	TestFrame(){
+		setSize(500, 300);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		JFrame f = new TestFrame();
+		
+		f.setLayout(new FlowLayout());
+		
+		final JProgressBar jp = new JProgressBar(0,100);
+		jp.setUI(new ProgressCircleUI());
+		
+		
+		f.add(jp);
+		
+		   Thread th = new Thread(){
+
+			    public void run(){
+			        for(int i = 0 ; i <= 100 ; i++){
+			           jp.setValue(i);
+			            try {
+			                Thread.sleep(100);
+			           } catch (InterruptedException e) {
+			            }
+			        }
+			    }
+			};
+			th.start();
+		
+	}
+
+}
