@@ -1,0 +1,78 @@
+package com.app.main;
+
+import org.apache.log4j.Logger;
+
+
+public class TestXMLTaskVO {
+	
+	private final Logger log = Logger.getLogger(getClass().getName());
+	
+	/**mandatory checks*/
+	public boolean test(TaskVO vo) {
+		
+		////
+		String excelPath = ""; // vo.getExcelPath();
+		String excelFileName = ""; //vo.getExcelFileName();
+		String excelColumns = vo.getExcelColumns();
+		if(excelPath == null ||  excelPath.trim().equals("")){
+			log.error(" <path> is not properly configured in <excel>.");
+			return false;
+		}
+		if(excelFileName == null ||  excelFileName.trim().equals("")){
+			log.error(" <file-name> is not properly configured in <excel>.");
+			return false;
+		}
+		if(excelColumns == null ||  excelColumns.trim().equals("")){
+			log.error(" <columns> is not properly configured in <excel>.");
+			return false;
+		}
+		
+		////
+		String dbTableName = vo.getDbTableName();
+		String dbTableColumns = vo.getDbTableColumns();
+		if(dbTableName == null ||  dbTableName.trim().equals("")){
+			log.error(" <table-name> is not properly configured in <database>.");
+			return false;
+		}
+		if(dbTableColumns == null ||  dbTableColumns.trim().equals("")){
+			log.error(" <columns> is not properly configured in <database>.");
+			return false;
+		}
+		
+		////
+		String actionName = vo.getActionName();
+		String actionPath = vo.getActionPath();
+		String actionSuffix = vo.getActionSuffix();
+		if(actionName == null ||  actionName.trim().equals("")){
+			log.error(" <action> is not properly configured in <post-action>.");
+			return false;
+		}
+//		if(actionPath == null ||  actionPath.trim().equals("")){
+//			log.error(" <columns> is not properly configured in <action>.");
+//			return false;
+//		}
+//		if(actionSuffix == null ||  actionSuffix.trim().equals("")){
+//			log.error(" <columns> is not properly configured in <action>.");
+//			return false;
+//		}
+		
+		////
+		String mailTo = vo.getMailTo();
+		String mailSubject = vo.getMailSubject();
+		String mailBody = vo.getMailSuccessBody();
+		if(mailTo == null ||  mailTo.trim().equals("")){
+			log.error(" <to> is not properly configured in <mail>.");
+			return false;
+		}
+		if(mailSubject == null ||  mailSubject.trim().equals("")){
+			log.error(" <subject> is not properly configured in <mail>.");
+			return false;
+		}
+		if(mailBody == null ||  mailBody.trim().equals("")){
+			log.error(" <body> is not properly configured in <mail>.");
+			return false;
+		}
+		
+		return true;
+	}
+}
