@@ -1,0 +1,58 @@
+package com.app.db.dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.app.commons.AppConstants;
+
+public class ConnectionMgr { 
+	
+	public static Connection getConnectionForDB(String connectionType) throws Exception{
+		
+		if(connectionType.equals(AppConstants.CONNECTION_aa_QA)){
+			return openConnection(AppConstants.aa_QA_CONN_URL, AppConstants.aa_QA_USER, AppConstants.aa_QA_PWD);
+		}
+		if(connectionType.equals(AppConstants.CONNECTION_aa_PROD)){
+			return openConnection(AppConstants.aa_PROD_CONN_URL, 
+					AppConstants.aa_PROD_USER, AppConstants.aa_PROD_PWD);
+		}
+		if(connectionType.equals(AppConstants.CONNECTION_bb)){
+			return openConnection(AppConstants.bb_CONN_URL, AppConstants.bb_USER, AppConstants.bb_PWD);
+		}
+		
+		if(connectionType.equals(AppConstants.CONNECTION_bb_QA)){
+			return openConnection(AppConstants.bb_UK_CONN_URL, 
+					AppConstants.QA_bb_USER, AppConstants.QA_bb_PWD);
+		}
+		
+		System.out.println("Dont have connection for connectionType= "+connectionType);
+		return null;
+	}
+	
+	private static Connection openConnection(String url, String usr, String pass) throws Exception {
+		Connection connection = null;
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		connection = DriverManager.getConnection(url, usr, pass);
+		System.out.println("connected to DB");
+		return connection;
+	}
+	
+	public static void closeConnection(ResultSet rs, Statement pstmt, Connection conn){
+		try	{
+			if (rs != null)	{
+				rs.close();
+			}
+			if (pstmt != null)	{
+				pstmt.close();
+			}
+			if (null != conn)	{
+				System.out.println("Connection closed.");
+				conn.close();
+			}
+		} catch (Exception e)	{
+			e.printStackTrace();
+		}
+	}
+}
