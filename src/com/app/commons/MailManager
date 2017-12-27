@@ -1,0 +1,75 @@
+package com.app.commons;
+
+
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.apache.log4j.Logger;
+
+
+public class MailManager{
+
+	private final static Logger log = Logger.getLogger(MailManager.class.getName());
+
+	public static void send( String mailFrom, String to, String cc, String bcc, String sub, String body){
+		
+		log.info("Sending mail...");
+//		log.info("mailFrom "+mailFrom);
+//		log.info("to "+to);
+//		log.info("cc "+ cc);
+//		log.info("sub "+ sub);
+//		log.info("body "+ body);
+
+		String host = "bridaaaa.aaaaa.com";
+		
+		try	{
+			
+			Properties props1 = new Properties();
+			props1.put("mail.smtp.host", host);
+			props1.put("mail.smtp.port", "25");
+
+			Session session = Session.getDefaultInstance(props1);
+			Message message = new MimeMessage(session);
+
+			message.setFrom(new InternetAddress(mailFrom));
+			
+			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+			if(cc != null && !cc.equals("")){
+				message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(cc));
+			}
+			if(bcc != null && !bcc.equals("")){
+				message.setRecipients(Message.RecipientType.BCC, InternetAddress.parse(bcc));
+			}
+			message.setSubject(sub);
+			message.setContent(body, "text/html");
+
+			Transport.send(message);
+			
+			log.info("Mail has been sent successfully");
+
+		} catch (Exception mex)	{
+			
+			log.error("Exception occured while sending mail. Excep- "+mex.getMessage());
+			mex.printStackTrace();
+
+		}
+	}
+
+	 public static void main(String[] args) {
+		 
+		 MailManager.send("ChaudhN03@cpwplc.com",
+				 "aaaa@aaa.com",
+				 "aaaa@caaa.com",
+				 "Caaa3@aaa.com",
+				 "Testing",
+				 "HI");
+		 
+	 }
+
+}
+
