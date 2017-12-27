@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<app>
+	<!-- Provide task specific name with task tag to distinguish tasks. 
+		 Only ACTIVE task will be executed.
+	-->
+	<task name="EE claim closure" owner="name" status="ACTIVE">
+		<insert>
+			<incoming-excel>
+				<columns>userid, username</columns>
+			</incoming-excel>
+			
+			<database>
+				<connection4db>CONNECTION_IMACS_QA</connection4db>
+				<table-name>imacs.temp_test</table-name>
+				<columns>empid,empname</columns>
+				
+				<!-- Note: Database table must have CREATED_ON and CREATED_BY columns.
+						   These two columns will automatically get updated by tool.
+						   will throw exception if these columns are not present in table.					
+				 -->
+				
+				<!-- 
+					<connection-db>
+						CONNECTION_IMACS_PROD/CONNECTION_LIVE_UK/CONNECTION_IMACS_QA/CONNECTION_PIE_UK_QA
+					</connection-db>
+				 -->
+			</database>
+			
+			<post-action>
+				<action path="F://TESTING//">ACTION_MOVE</action>
+				
+				<!-- 
+		  			Post-Action is action to be taken on the processed file. 
+					choose one of below DELETE/MOVE/RENAME.
+					#need double slash (//) at end of path in case of unix use (/)
+					
+					<action>ACTION_DELETE</action>
+					
+					<action path="F://processed//">
+						ACTION_MOVE
+					</action>
+					
+					<action suffix="DATE">ACTION_RENAME</action>
+				-->
+			</post-action>
+
+			<mail>
+				<!-- 
+					Use these tokens to format your mail body.
+					 ##filename, ##tablename, ##dbname, ##recordcount, ##exceptiontrace, ##nl, ##taskname
+				 -->
+				<to>ChaudhN03@cpwplc.com</to>
+				<cc>SirajA@cpwplc.com</cc>
+				<bcc></bcc>
+				<subject>Transfering file data to DB response mail test</subject>
+				<success-body>Hi all ##nl The ##filename data has been 
+					transferred to ##dbname in ##tablename. ##nl Regards,</success-body>
+				<failure-body>Hi all,##nl Exception occured.  ##nl  ##exceptiontrace ##nl Regards,</failure-body>
+			</mail>
+			
+		</insert>
+	</task>
+	
+	
+
+</app>
+
