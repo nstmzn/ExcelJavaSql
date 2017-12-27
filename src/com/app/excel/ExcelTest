@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package com.app.excel;
+
+import org.apache.poi.ss.usermodel.Cell;
+
+
+public class ExcelTest {
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+//		ExcelReader obj = new ExcelReader();
+//		
+//		String filePath = "C:\\_test\\Remedy_incident_report.xlsx";
+//		String[] columns = {"Priority", "Ticket"};
+//		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+//		map.put("Reported Date", -1);
+//		map.put("Priority", -1);
+//		map.put("Ticket", -1);
+//		
+////		String generateInsertQuery = QueryGenerator.generateInsertQuery("temp_table", columns);
+////		System.out.println(generateInsertQuery);
+//		
+//		List<ArrayList<Object>> excelData = obj.getExcelData(filePath, map);
+//		
+//		for(ArrayList<Object> al : excelData){
+//			for(Object str : al){
+//				System.out.print(str+"\t\t");
+//			}
+//			System.out.println("");
+//		}
+		
+		
+		 System.out.println("CELL_TYPE_STRING "+  Cell.CELL_TYPE_STRING);
+		 System.out.println("CELL_TYPE_BLANK "+ Cell.CELL_TYPE_BLANK);
+		 System.out.println("CELL_TYPE_BOOLEAN "+ Cell.CELL_TYPE_BOOLEAN);
+		 System.out.println("CELL_TYPE_ERROR "+ Cell.CELL_TYPE_ERROR);
+		 System.out.println("CELL_TYPE_FORMULA "+ Cell.CELL_TYPE_FORMULA);
+		 System.out.println("CELL_TYPE_NUMERIC "+ Cell.CELL_TYPE_NUMERIC);
+	
+	}
+
+}
